@@ -43,10 +43,9 @@ namespace SimpleTrader.WPF.ViewModels
         public MajorIndexListingViewModel(IMajorIndexService majorIndexService)
         {
             _majorIndexService = majorIndexService;
-            LoadMajorIndices();
         }
 
-        private void LoadMajorIndices()
+        public void LoadMajorIndices()
         {
             _majorIndexService.GetMajorIndex(MajorIndexType.DowJones).ContinueWith(task =>
             {

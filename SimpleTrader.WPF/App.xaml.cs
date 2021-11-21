@@ -3,6 +3,7 @@ using SimpleTrader.Domain.DependencyInjection;
 using SimpleTrader.EntityFramework.DependencyInjection;
 using SimpleTrader.FinancialModelingPrepAPI.DependencyInjection;
 using SimpleTrader.WPF.DependencyInjection;
+using SimpleTrader.WPF.Models;
 using SimpleTrader.WPF.ViewModels;
 using System;
 using System.Windows;
@@ -18,6 +19,10 @@ namespace SimpleTrader.WPF
         {
             var serviceProvider = CreateServiceProvider();
 
+            // Set default navigation
+            serviceProvider.GetRequiredService<NavigationCollection>().SelectViewModel("Home");
+
+            // Show window
             new MainWindow { DataContext = serviceProvider.GetRequiredService<MainViewModel>() }.Show();
             base.OnStartup(e);
         }

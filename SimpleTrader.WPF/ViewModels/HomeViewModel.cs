@@ -2,11 +2,22 @@
 {
     internal class HomeViewModel : ViewModelBase 
     {
-        public MajorIndexListingViewModel MajorIndexViewModel { get; set; }
+        private bool _isLoaded;
 
-        public HomeViewModel(MajorIndexListingViewModel majorIndexViewModel)
+        public MajorIndexListingViewModel MajorIndexListingViewModel { get; set; }
+
+        public HomeViewModel(MajorIndexListingViewModel majorIndexListingViewModel)
         {
-            MajorIndexViewModel = majorIndexViewModel;
+            MajorIndexListingViewModel = majorIndexListingViewModel;
+        }
+
+        public void Load()
+        {
+            if (_isLoaded)
+                return;
+
+            MajorIndexListingViewModel.LoadMajorIndices();
+            _isLoaded = true;
         }
     }
 }

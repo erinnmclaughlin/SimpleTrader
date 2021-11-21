@@ -1,5 +1,4 @@
-﻿using SimpleTrader.WPF.State.Navigators;
-using SimpleTrader.WPF.ViewModels;
+﻿using SimpleTrader.WPF.ViewModels;
 
 namespace SimpleTrader.WPF.Models
 {
@@ -19,11 +18,10 @@ namespace SimpleTrader.WPF.Models
             }
         }
 
-        public NavigationItem(string title, ViewModelBase viewModel, bool isChecked)
+        public NavigationItem(string title, ViewModelBase viewModel)
         {
             Title = title;
             ViewModel = viewModel;
-            IsChecked = isChecked;
         }
     }
 }

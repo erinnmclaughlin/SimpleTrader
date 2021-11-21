@@ -1,7 +1,6 @@
 ﻿using SimpleTrader.WPF.Commands;
 using SimpleTrader.WPF.Models;
 using SimpleTrader.WPF.ViewModels;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -9,7 +8,7 @@ namespace SimpleTrader.WPF.State.Navigators
 {
     internal class Navigator : ObservableObject, INavigator
     {
-        public ObservableCollection<NavigationItem> NavigationItems { get; set; }
+        public NavigationCollection NavigationItems { get; set; }
 
         private ViewModelBase _currentViewModel = null!;
         public ViewModelBase CurrentViewModel

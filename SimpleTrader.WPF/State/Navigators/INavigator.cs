@@ -8,7 +8,7 @@ namespace SimpleTrader.WPF.State.Navigators
     internal interface INavigator
     {
         ViewModelBase CurrentViewModel { get; set; }
-        ObservableCollection<NavigationItem> NavigationItems { get; set; }
+        NavigationCollection NavigationItems { get; set; }
         ICommand UpdateCurrentViewModelCommand { get; }
     }
 }

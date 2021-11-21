@@ -1,6 +1,5 @@
 ﻿using SimpleTrader.WPF.State.Navigators;
 using System;
-using System.Linq;
 using System.Windows.Input;
 
 namespace SimpleTrader.WPF.Commands
@@ -25,10 +24,8 @@ namespace SimpleTrader.WPF.Commands
         {
             if (parameter is string title)
             {
-                foreach (var item in _navigator.NavigationItems)
-                    item.IsChecked = item.Title == title;
-
-                _navigator.CurrentViewModel = _navigator.NavigationItems.Single(x => x.Title == title).ViewModel;
+                _navigator.NavigationItems.SelectViewModel(title);
+                _navigator.CurrentViewModel = _navigator.NavigationItems.SelectedViewModel!;
             }
         }
     }
