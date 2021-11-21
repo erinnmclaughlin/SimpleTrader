@@ -37,25 +37,25 @@ namespace SimpleTrader.EntityFramework.Services
             return await GetDefaultQuery(context).ToListAsync();
         }
 
-        public async Task<Account> GetById(int id)
+        public async Task<Account?> GetById(int id)
         {
             using var context = _contextFactory.CreateDbContext();
             var entity = await GetDefaultQuery(context).FirstOrDefaultAsync(x => x.Id == id);
-            return entity!;
+            return entity;
         }
 
-        public async Task<Account> GetByEmail(string email)
+        public async Task<Account?> GetByEmail(string email)
         {
             using var context = _contextFactory.CreateDbContext();
             var account = await GetDefaultQuery(context).FirstOrDefaultAsync(x => x.AccountHolder.Email == email);
-            return account!;
+            return account;
         }
 
-        public async Task<Account> GetByUsername(string username)
+        public async Task<Account?> GetByUsername(string username)
         {
             using var context = _contextFactory.CreateDbContext();
             var account = await GetDefaultQuery(context).FirstOrDefaultAsync(x => x.AccountHolder.Username == username);
-            return account!;
+            return account;
         }
 
         public async Task<Account> Update(int id, Account entity)

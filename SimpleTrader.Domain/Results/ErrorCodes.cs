@@ -8,8 +8,7 @@
 
     public enum LoginError
     { 
-        InvalidUsername,
-        InvalidPassword,
+        InvalidCredentials,
         Unknown
     }
 

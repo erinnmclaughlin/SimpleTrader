@@ -16,6 +16,6 @@ namespace SimpleTrader.Domain.Results.AuthenticationResults
         }
 
         public static LoginResult InvalidCredentials()
-            => Fail("Invalid credentials.", LoginError.InvalidUsername);
+            => Fail("Invalid credentials.", LoginError.InvalidCredentials);
     }
 }
