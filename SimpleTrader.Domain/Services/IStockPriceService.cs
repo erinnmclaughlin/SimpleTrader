@@ -1,7 +1,9 @@
-﻿namespace SimpleTrader.Domain.Services
+﻿using SimpleTrader.Domain.Results.StockPriceResults;
+
+namespace SimpleTrader.Domain.Services
 {
     public interface IStockPriceService
     {
-        Task<double> GetPrice(string symbol);
+        Task<GetPriceResult> GetPrice(string symbol);
     }
 }

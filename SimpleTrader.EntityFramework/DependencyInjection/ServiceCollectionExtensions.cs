@@ -14,7 +14,8 @@ namespace SimpleTrader.EntityFramework.DependencyInjection
 
         public static IServiceCollection AddDataServices(this IServiceCollection services)
         {
-            return services.AddSingleton<IDataService<Account>, AccountDataService>();
+            return services.AddSingleton<IAccountService, AccountDataService>()
+                .AddSingleton<IDataService<Account>, AccountDataService>();
         }
     }
 }

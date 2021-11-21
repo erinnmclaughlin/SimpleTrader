@@ -1,4 +1,4 @@
-﻿using SimpleTrader.Domain.Exceptions;
+﻿using SimpleTrader.Domain.Results.StockPriceResults;
 using SimpleTrader.Domain.Services;
 using SimpleTrader.FinancialModelingPrepAPI.Results;
 
@@ -6,16 +6,16 @@ namespace SimpleTrader.FinancialModelingPrepAPI.Services
 {
     internal class StockPriceService : IStockPriceService
     {
-        public async Task<double> GetPrice(string symbol)
+        public async Task<GetPriceResult> GetPrice(string symbol)
         {
             var uri = "quote-short/" + symbol;
             using var client = new FinancialModelingPrepHttpClient();
             var result = (await client.GetAsync<StockPriceResult[]>(uri)).SingleOrDefault();
 
             if (result is null)
-                throw new InvalidSymbolException(symbol);
+                return GetPriceResult.InvalidSymbol(symbol);
 
-            return result.Price;
+            return GetPriceResult.Succeed(result.Price);
         }
     }
 }

@@ -5,7 +5,7 @@ using SimpleTrader.EntityFramework.Services.Common;
 
 namespace SimpleTrader.EntityFramework.Services
 {
-    internal class AccountDataService : IDataService<Account>
+    internal class AccountDataService : IAccountService
     {
         private readonly SimpleTraderDbContextFactory _contextFactory;
         private readonly CreateDataService<Account> _createService;
@@ -26,27 +26,44 @@ namespace SimpleTrader.EntityFramework.Services
             return await _createService.Create(entity);
         }
 
-        public virtual async Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             return await _deleteService.Delete(id);
         }
 
-        public virtual async Task<IEnumerable<Account>> GetAll()
+        public async Task<IEnumerable<Account>> GetAll()
         {
             using var context = _contextFactory.CreateDbContext();
-            return await context.Accounts.Include(x => x.AssetTransactions).ToListAsync();
+            return await GetDefaultQuery(context).ToListAsync();
         }
 
-        public virtual async Task<Account> GetById(int id)
+        public async Task<Account> GetById(int id)
         {
             using var context = _contextFactory.CreateDbContext();
-            var entity = await context.Accounts.Include(x => x.AssetTransactions).FirstOrDefaultAsync(x => x.Id == id);
+            var entity = await GetDefaultQuery(context).FirstOrDefaultAsync(x => x.Id == id);
             return entity!;
         }
 
-        public virtual async Task<Account> Update(int id, Account entity)
+        public async Task<Account> GetByEmail(string email)
+        {
+            using var context = _contextFactory.CreateDbContext();
+            var account = await GetDefaultQuery(context).FirstOrDefaultAsync(x => x.AccountHolder.Email == email);
+            return account!;
+        }
+
+        public async Task<Account> GetByUsername(string username)
+        {
+            using var context = _contextFactory.CreateDbContext();
+            var account = await GetDefaultQuery(context).FirstOrDefaultAsync(x => x.AccountHolder.Username == username);
+            return account!;
+        }
+
+        public async Task<Account> Update(int id, Account entity)
         {
             return await _updateService.Update(id, entity);
         }
+
+        private static IQueryable<Account> GetDefaultQuery(SimpleTraderDbContext context) =>
+            context.Accounts.Include(x => x.AccountHolder).Include(x => x.AssetTransactions);
     }
 }

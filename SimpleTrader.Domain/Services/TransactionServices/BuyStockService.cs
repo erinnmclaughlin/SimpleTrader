@@ -1,5 +1,5 @@
-﻿using SimpleTrader.Domain.Exceptions;
-using SimpleTrader.Domain.Models;
+﻿using SimpleTrader.Domain.Models;
+using SimpleTrader.Domain.Results.TransactionResults;
 
 namespace SimpleTrader.Domain.Services.TransactionServices
 {
@@ -14,15 +14,15 @@ namespace SimpleTrader.Domain.Services.TransactionServices
             _stockPriceService = stockPriceService;
         }
 
-        public async Task<Account> BuyStock(Account buyer, string symbol, int shares)
+        public async Task<BuyStockResult> BuyStock(Account buyer, string symbol, int shares)
         {
-            var stockPrice = await _stockPriceService.GetPrice(symbol);
+            var result = await _stockPriceService.GetPrice(symbol);
+            var stockPrice = result.Data;
+
             var transactionPrice = stockPrice * shares;
 
             if (buyer.Balance < transactionPrice)
-            {
-                throw new InsufficientFundsException(buyer.Balance, transactionPrice);
-            }
+                return BuyStockResult.InsufficientFunds();
 
             var transaction = new AssetTransaction
             {
@@ -36,7 +36,7 @@ namespace SimpleTrader.Domain.Services.TransactionServices
             buyer.Balance -= transactionPrice;
 
             await _accountService.Update(buyer.Id, buyer);
-            return buyer;
+            return BuyStockResult.Succeed(buyer);
         }
     }
 }

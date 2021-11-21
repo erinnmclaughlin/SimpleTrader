@@ -47,29 +47,38 @@ namespace SimpleTrader.WPF.ViewModels
 
         public void LoadMajorIndices()
         {
-            _majorIndexService.GetMajorIndex(MajorIndexType.DowJones).ContinueWith(task =>
+            if (DowJones is null)
             {
-                if (task.Exception is null)
+                _majorIndexService.GetMajorIndex(MajorIndexType.DowJones).ContinueWith(task =>
                 {
-                    DowJones = task.Result;
-                }
-            });
+                    if (task.Exception is null)
+                    {
+                        DowJones = task.Result;
+                    }
+                });
+            }
+            
+            if (Nasdaq is null)
+            {
+                _majorIndexService.GetMajorIndex(MajorIndexType.Nasdaq).ContinueWith(task =>
+                {
+                    if (task.Exception is null)
+                    {
+                        Nasdaq = task.Result;
+                    }
+                });
+            }
 
-            _majorIndexService.GetMajorIndex(MajorIndexType.Nasdaq).ContinueWith(task =>
+            if (SP500 is null)
             {
-                if (task.Exception is null)
+                _majorIndexService.GetMajorIndex(MajorIndexType.SP500).ContinueWith(task =>
                 {
-                    Nasdaq = task.Result;
-                }
-            });
-
-            _majorIndexService.GetMajorIndex(MajorIndexType.SP500).ContinueWith(task =>
-            {
-                if (task.Exception is null)
-                {
-                    SP500 = task.Result;
-                }
-            });
+                    if (task.Exception is null)
+                    {
+                        SP500 = task.Result;
+                    }
+                });
+            }
         }
     }
 }
