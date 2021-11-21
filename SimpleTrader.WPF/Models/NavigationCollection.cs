@@ -6,10 +6,11 @@ namespace SimpleTrader.WPF.Models
 {
     internal class NavigationCollection : ObservableCollection<NavigationItem>
     {
-        public NavigationCollection(HomeViewModel home, PortfolioViewModel portfolio)
+        public NavigationCollection(HomeViewModel home, PortfolioViewModel portfolio, BuyViewModel buy)
         {
             Add(new NavigationItem("Home", home));
             Add(new NavigationItem("Portfolio", portfolio));
+            Add(new NavigationItem("Buy", buy));
         }
 
         public void SelectViewModel(string title)

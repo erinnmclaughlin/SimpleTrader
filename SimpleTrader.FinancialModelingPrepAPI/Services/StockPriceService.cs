@@ -8,14 +8,12 @@ namespace SimpleTrader.FinancialModelingPrepAPI.Services
     {
         public async Task<double> GetPrice(string symbol)
         {
-            var uri = "real-time-price/" + symbol;
+            var uri = "quote-short/" + symbol;
             using var client = new FinancialModelingPrepHttpClient();
-            var result = await client.GetAsync<StockPriceResult>(uri);
+            var result = (await client.GetAsync<StockPriceResult[]>(uri)).SingleOrDefault();
 
-            if (result.Price == 0)
-            {
+            if (result is null)
                 throw new InvalidSymbolException(symbol);
-            }
 
             return result.Price;
         }

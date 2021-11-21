@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="SimpleTrader.WPF.Views.BuyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SimpleTrader.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="20" MaxWidth="600">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Right">
+            <TextBox Width="150" Text="{Binding Symbol, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Margin="10 0 0 0" Content="Search" Command="{Binding SearchSymbolCommand}" />
+        </WrapPanel>
+
+        <Grid Grid.Row="1" Margin="0 20 0 0">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SearchResultSymbol}" Value="">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Grid.Row="0" BorderBrush="LightGray" BorderThickness="1" Padding="20" CornerRadius="3 0 0 3">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock FontSize="36" FontWeight="DemiBold" Text="{Binding SearchResultSymbol}"  HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding StockPrice, StringFormat={}{0:c}}" Margin="0 10 0 0"  HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 1 1 1" Padding="20" CornerRadius="0 3 3 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    
+                    <WrapPanel Grid.Row="0" Margin="0 5" VerticalAlignment="Top">
+                        <TextBlock Width="150" Text="Shares to buy:" VerticalAlignment="Center" FontWeight="DemiBold" />
+                        <TextBox Width="100" Text="{Binding SharesToBuy, UpdateSourceTrigger=PropertyChanged}" />
+                    </WrapPanel>
+                    
+                    <WrapPanel Grid.Row="1" Margin="0 10" VerticalAlignment="Top">
+                        <TextBlock Width="150" Text="Price per share:" VerticalAlignment="Center" FontWeight="DemiBold" />
+                        <TextBlock Width="50" Text="{Binding StockPrice, StringFormat={}{0:c}}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </WrapPanel>
+
+
+                    <TextBlock Grid.Row="3" Margin="0 10" FontSize="32" Text="{Binding TotalPrice, StringFormat={}{0:c}}" HorizontalAlignment="Right" />
+                    <Button Grid.Row="4" Content="Buy Shares" Command="{Binding BuyStockCommand}" HorizontalAlignment="Right" />
+
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

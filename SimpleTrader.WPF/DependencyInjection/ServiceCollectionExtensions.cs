@@ -2,6 +2,8 @@
 using SimpleTrader.WPF.Models;
 using SimpleTrader.WPF.State.Navigators;
 using SimpleTrader.WPF.ViewModels;
+using System.Linq;
+using System.Reflection;
 
 namespace SimpleTrader.WPF.DependencyInjection
 {
@@ -20,10 +22,12 @@ namespace SimpleTrader.WPF.DependencyInjection
 
         public static IServiceCollection AddViewModels(this IServiceCollection services)
         {
-            return services.AddScoped<HomeViewModel>()
-                .AddScoped<MainViewModel>()
-                .AddScoped<MajorIndexListingViewModel>()
-                .AddScoped<PortfolioViewModel>();
+            var viewModels = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.BaseType == typeof(ViewModelBase));
+
+            foreach (var viewModel in viewModels)
+                services.AddScoped(viewModel);
+
+            return services;
         }
     }
 }
