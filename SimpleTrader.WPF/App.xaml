@@ -1,0 +1,24 @@
+﻿<Application x:Class="SimpleTrader.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SimpleTrader.WPF"
+             xmlns:viewModels="clr-namespace:SimpleTrader.WPF.ViewModels"
+             xmlns:views="clr-namespace:SimpleTrader.WPF.Views">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Common.xaml" />
+                <ResourceDictionary Source="/Styles/NavigationBar.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- This is a view model locator pattern -->
+            <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+                <views:HomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:PortfolioViewModel}">
+                <views:PortfolioView />
+            </DataTemplate>
+            
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
