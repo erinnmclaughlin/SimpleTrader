@@ -26,7 +26,7 @@ namespace SimpleTrader.EntityFramework.Services
             return await _createService.Create(entity);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(Guid id)
         {
             return await _deleteService.Delete(id);
         }
@@ -37,7 +37,7 @@ namespace SimpleTrader.EntityFramework.Services
             return await GetDefaultQuery(context).ToListAsync();
         }
 
-        public async Task<Account?> GetById(int id)
+        public async Task<Account?> GetById(Guid id)
         {
             using var context = _contextFactory.CreateDbContext();
             var entity = await GetDefaultQuery(context).FirstOrDefaultAsync(x => x.Id == id);
@@ -58,7 +58,7 @@ namespace SimpleTrader.EntityFramework.Services
             return account;
         }
 
-        public async Task<Account> Update(int id, Account entity)
+        public async Task<Account> Update(Guid id, Account entity)
         {
             return await _updateService.Update(id, entity);
         }

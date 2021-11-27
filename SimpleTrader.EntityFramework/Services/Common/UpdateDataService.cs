@@ -11,7 +11,7 @@ namespace SimpleTrader.EntityFramework.Services.Common
             _contextFactory = contextFactory;
         }
 
-        public async Task<T> Update(int id, T entity)
+        public async Task<T> Update(Guid id, T entity)
         {
             using var context = _contextFactory.CreateDbContext();
             entity.Id = id;

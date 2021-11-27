@@ -11,7 +11,7 @@ namespace SimpleTrader.EntityFramework.Services.Common
             _contextFactory = contextFactory;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(Guid id)
         {
             using var context = _contextFactory.CreateDbContext();
             var entity = await context.FindAsync<T>(id);

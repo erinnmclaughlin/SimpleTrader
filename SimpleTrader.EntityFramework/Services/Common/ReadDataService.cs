@@ -18,10 +18,10 @@ namespace SimpleTrader.EntityFramework.Services.Common
             return await context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> GetById(int id)
+        public async Task<T> GetById(Guid id)
         {
             using var context = _contextFactory.CreateDbContext();
-            var entity = await context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            var entity = await context.Set<T>().FirstOrDefaultAsync(x => x.Id.Equals(id));
             return entity!;
         }
     }

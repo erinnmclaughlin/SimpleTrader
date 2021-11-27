@@ -32,7 +32,7 @@ namespace SimpleTrader.WPF.Commands
             {
                 await _buyStockService.BuyStock(new Account
                 {
-                    Id = 1,
+                    Id = Guid.NewGuid(),
                     Balance = 500,
                     AssetTransactions = new List<AssetTransaction>()
                 }, _viewModel.Symbol!, _viewModel.SharesToBuy);

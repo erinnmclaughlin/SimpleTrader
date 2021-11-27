@@ -8,8 +8,8 @@
     public class MajorIndex
     {
         public string IndexName { get; set; } = null!;
-        public double Price { get; set; }
-        public double Changes { get; set; }
+        public decimal Price { get; set; }
+        public decimal Changes { get; set; }
         public MajorIndexType Type { get; set; }
     }
 }
